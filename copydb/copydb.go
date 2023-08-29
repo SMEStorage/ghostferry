@@ -103,10 +103,10 @@ func (this *CopydbFerry) Run() {
 	// This is where you cutover from using the source database to
 	// using the target database
 
-	logrus.Info("ghostferry main operations has terminated but the control server remains online")
-	logrus.Info("press CTRL+C or send an interrupt to stop the control server and end this process")
-
-	this.Ferry.ControlServer.Wait()
+	logrus.Info("ghostferry main operations has terminated")
+	if this.config.ControlServerConfig.Enabled {
+		this.Ferry.ControlServer.Wait()
+	}
 }
 
 func (this *CopydbFerry) initializeWaitUntilReplicaIsCaughtUpToMasterConnection() error {
